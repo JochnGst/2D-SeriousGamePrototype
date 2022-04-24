@@ -1,4 +1,5 @@
 using ClientFramework;
+using ClientFramework.Interaction;
 using GameUtilitys.Utilities;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,27 +16,22 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _main = new Main();
-        playerController.getMoveDirection = GetMoveDirection;
+        playerController.getNextAction = GetMoveDirection;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerController.Surrounding.CurrentPosition is IGameAsset { Type: "Goal" })
-        {
-            playerController.Stop();
-            Debug.Log("Goal reached!");
-            this.enabled = false;
-        }
+        //if (playerController.Surrounding.CurrentPosition is IGameAsset { Type: "Goal" })
+        //{
+        //    playerController.Stop();
+        //    Debug.Log("Goal reached!");
+        //    this.enabled = false;
+        //}
     }
 
-    private float GetMoveDirection(ISurrounding surrounding)
+    private IPlayerAction GetMoveDirection(ISurrounding surrounding)
     {
-        return _main.Player_NextStep(surrounding) switch
-        {
-            Movement.Left => -1,
-            Movement.Right => 1,
-            _ => 0
-        };
+        return _main.Player_NextStep(surrounding);
     }
 }

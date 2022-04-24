@@ -4,6 +4,6 @@
     {
         string Type { get; set; }
 
-        IStation Station { get; set; }
+        IStation Station { get; }
     }
 }
